@@ -1,0 +1,133 @@
+<template>
+  <div class="col s12 m6">
+    <div>
+      <div class="page-subtitle">
+        <h4>Редактировать</h4>
+      </div>
+
+      <form @submit.prevent="submitHandler">
+        <div class="input-field" >
+          <select ref="select" v-model="current">
+            <option
+              v-for="category of categories"
+              :key="category.id"
+              :value="category.id"
+              >
+              {{ category.title }}
+            </option>
+          </select>
+          <label>Выберите категорию</label>
+        </div>
+
+        <div class="input-field">
+          <input
+              id="name_edit"
+              type="text"
+              v-model.number="title"
+              :class="{invalid: $v.title.$dirty && !$v.title.required}"
+          >
+          <label for="name_edit">Ведите название категории</label>
+          <span 
+            class="helper-text invalid"
+            v-if="$v.title.$dirty && !$v.title.required"
+          >
+            Введите название
+          </span>
+        </div>
+
+        <div class="input-field">
+          <input
+              id="limit_edit"
+              type="number"
+              v-model="limit"
+              :class="{invalid: $v.limit.$dirty && !$v.limit.minValue}"
+          >
+          <label for="limit_edit">Лимит</label>
+          <span 
+            class="helper-text invalid"
+            v-if="$v.limit.$dirty && !$v.limit.minValue"
+          >
+            Минимальное значение {{ $v.limit.$params.minValue.min }}
+          </span>
+        </div>
+
+        <button class="btn waves-effect waves-light" type="submit">
+          Обновить
+          <i class="material-icons right">send</i>
+        </button>
+      </form>
+    </div>
+  </div>
+
+</template>
+
+<script>
+import {required, minValue} from 'vuelidate/lib/validators' // импортируем валидаторы
+
+export default {
+  props: {
+    categories: {
+      type: Array,
+      required: true,
+    }
+  },
+  data() {
+    return {
+      select: null,
+      title: '',
+      limit: '',
+      id: '',
+      current: null,
+    }
+  },
+  methods: {
+    async submitHandler() {
+      if (this.$v.$invalid) {
+        this.$v.$touch()
+        return
+      }
+      try {
+        const editetCategory = {
+        title: this.title,
+        limit: this.limit,
+        id: this.id
+      }
+      await this.$store.dispatch('editCategory', editetCategory)
+      this.$message('Категория успешно обновлена')
+      this.$emit('update', editetCategory)
+      } catch (error) {
+        console.log(error);
+        throw error
+      }
+    },
+  },
+  validations: {
+    title: {required},
+    limit: {minValue: minValue(100)},
+  },
+  created() { // получаем начальные значения для полей
+    const {id, title, limit} = this.categories[0]
+    this.id = id
+    this.title = title
+    this.limit = limit
+  },
+  mounted() {
+    const options = []
+    this.select = window.M.FormSelect.init(this.$refs.select, options);
+    window.M.updateTextFields();
+  },
+  destroyed() { // очищаем кеш селектора, при переходе на другую тсраницу
+    if (this.elect && this.select.destroy) {
+      this.select.destroy()
+    }
+  },
+  watch: {  // следим за обновлениями в данном объекте
+    current(catId) {
+      const {title, limit} = this.categories.find(c => c.id === catId)
+      this.title = title
+      this.limit = limit
+      this.id = catId
+    }
+  }
+}
+</script>
