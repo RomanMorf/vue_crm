@@ -7,13 +7,13 @@
 
       <form @submit.prevent="submitHandler">
         <div class="input-field" >
-          <select ref="select" v-model="current">
+          <select ref="select" v-model="current" >
             <option
-              v-for="category of categories"
-              :key="category.id"
-              :value="category.id"
+              v-for="c of categories"
+              :key="c.id"
+              :value="c.id"
               >
-              {{ category.title }}
+              {{c.title}}
             </option>
           </select>
           <label>Выберите категорию</label>
@@ -112,8 +112,7 @@ export default {
     this.limit = limit
   },
   mounted() {
-    const options = []
-    this.select = window.M.FormSelect.init(this.$refs.select, options);
+    this.select = window.M.FormSelect.init(this.$refs.select);
     window.M.updateTextFields();
   },
   destroyed() { // очищаем кеш селектора, при переходе на другую тсраницу
