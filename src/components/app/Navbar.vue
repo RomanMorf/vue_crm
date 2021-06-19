@@ -40,7 +40,7 @@
             </ul>
           </li>
         </ul>
-      </div>
+      </div> 
     </nav>
   </div>
 </template>
@@ -52,7 +52,7 @@ export default {
     dropdown: null,
     interval: null,
   }),
-
+  
   methods: {
 
     async logout() {

@@ -4,11 +4,13 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
+import Paginate from 'vuejs-paginate'
 import dateFilter from '@/filters/date.filter' // импортируем фильтр
 import currencyFilter from '@/filters/currency.filter' // импортируем фильтр
 import messagePlugin from '@/utils/message.plugin' // импортируем наш плагин сообщений
 import firebase from 'firebase/app'
 import Loader from '@/components/app/Loader.vue'
+import tooltipDirective from '@/directives/tooltip.directive'
 import 'firebase/auth';
 import 'firebase/database';
 
@@ -20,6 +22,7 @@ import 'materialize-css/dist/js/materialize.min'
 Vue.config.productionTip = false
 
 Vue.component('Loader', Loader)
+Vue.component('Paginate', Paginate)
 
 firebase.initializeApp({
   apiKey: "AIzaSyBhgPL2NS8nTaj4e8IUo4p0SNDYbze1k3w",
@@ -39,6 +42,7 @@ Vue.use(Vuelidate);
 Vue.use(messagePlugin);
 Vue.filter('date', dateFilter); // создаем фильтр и передаем в него настройки
 Vue.filter('currency', currencyFilter); // создаем фильтр и передаем в него настройки
+Vue.directive('tooltip', tooltipDirective); // глобально регистрируем директиву
 
 let app;
 

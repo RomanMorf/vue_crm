@@ -4,16 +4,22 @@
     <h3>Категории</h3>
   </div>
   <section>
+
     <Loader v-if="loading"/>
+
     <div v-else class="row">
+
       <CategoryCreate @created="addNewCategory"/>
+
       <CategoryEdit 
+        v-if="categories"
         :categories="categories"
         :key="categories.length + updateCount"
         @update="updateCategories"
-        v-if="categories.length"
         />
+
         <p class="center" v-else>Категорий пока нет...</p>
+
     </div>
   </section>
 </div>

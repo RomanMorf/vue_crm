@@ -43,8 +43,23 @@ export default {
         //   })
         // })
         // return cats
+        if (categories) {
+          return Object.keys(categories).map(key => ({...categories[key], id: key})) // аналогично закомментированному коду выше
+        } 
 
-        return Object.keys(categories).map(key => ({...categories[key], id: key})) // аналогично закомментированному коду выше
+        return
+
+      } catch (error) {
+        console.log(error, 'error');
+        commit('setError', error)
+        throw error
+      }
+    },    
+    async fetchCategoryById({commit, dispatch}, id) { // получить список категориц по Id
+      try {
+        const uid = await dispatch('getUid')
+        const category = (await firebase.database().ref(`/users/${uid}/categories`).child(id).once('value')).val()
+        return {...category, id: id}
 
       } catch (error) {
         commit('setError', error)

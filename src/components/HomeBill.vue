@@ -1,14 +1,14 @@
 <template>
   <div class="col s12 m6 l4">
-    <div class="card light-blue bill-card">
+    <div class="card light-blue">
       <div class="card-content white-text">
         <span class="card-title">Счет в валюте</span>
 
         <p 
-          v-for="(cur, index ) in currencies"
+          v-for="(rate, index ) in rates"
           :key="index"
           class="currency-line">
-          <span>{{getCurrency(cur) | currency(cur)}}</span>
+          <span>{{getCurrency(index)}} {{rate.ccy}}</span>
         </p>
       </div>
     </div>
@@ -19,17 +19,15 @@
 
 export default ({
   props: ['rates'],
-  data: () => ({
-    currencies: ['UAH', 'USD', 'EUR']
-  }),
   computed: {
     base() {
-      return this.$store.getters.info.bill / (this.rates['UAH'] / this.rates['EUR'])
+      return this.$store.getters.info.bill
     },
   },
   methods: {
-    getCurrency(currency) {
-      return Math.floor(this.base * this.rates[currency])
+    getCurrency(curIndex) {
+      const mergeRate = (+this.rates[curIndex].buy + +this.rates[curIndex].sale ) / 2
+      return (this.base / mergeRate).toFixed(3)
     }
   },
 })

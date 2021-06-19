@@ -101,14 +101,17 @@ export default {
       try {
         await this.$store.dispatch('login', formDara)
         this.$router.push('/')
+        // this.$message('Добро пожаловать')
+
       } catch (error) {
         if (messages[error.code]) {
-          // this.$message(messages[error.code])
+          this.$message(messages[error.code])
           throw error
         }
       }
     },
   },
+
 }
 </script>
 

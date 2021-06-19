@@ -166,7 +166,7 @@ export default {
 
       try {
         await this.$store.dispatch('register', formDara)
-        this.$router.push('/')
+        this.$router.push('/?message=wellcome')
       } catch (error) {
         if (messages[error.code]) {
           // this.$message(messages[error.code])
@@ -176,5 +176,10 @@ export default {
       }
     },
   },
+
+  destroyed() { 
+    window.M.Toast.dismissAll();
+  },
+
 }
 </script>

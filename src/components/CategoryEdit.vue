@@ -23,13 +23,15 @@
           <input
               id="name_edit"
               type="text"
-              v-model.number="title"
+              v-model="title"
               :class="{invalid: $v.title.$dirty && !$v.title.required}"
+
           >
           <label for="name_edit">Ведите название категории</label>
           <span 
             class="helper-text invalid"
             v-if="$v.title.$dirty && !$v.title.required"
+
           >
             Введите название
           </span>
@@ -39,7 +41,7 @@
           <input
               id="limit_edit"
               type="number"
-              v-model="limit"
+              v-model.number="limit"
               :class="{invalid: $v.limit.$dirty && !$v.limit.minValue}"
           >
           <label for="limit_edit">Лимит</label>
@@ -112,8 +114,16 @@ export default {
     this.limit = limit
   },
   mounted() {
-    this.select = window.M.FormSelect.init(this.$refs.select);
+    setTimeout(() => {
+      this.select = window.M.FormSelect.init(this.$refs.select);
+    }, 0)
+
+    if (this.categories.length) {
+      this.current = this.categories[0].id
+    }
+    
     window.M.updateTextFields();
+
   },
   destroyed() { // очищаем кеш селектора, при переходе на другую тсраницу
     if (this.elect && this.select.destroy) {

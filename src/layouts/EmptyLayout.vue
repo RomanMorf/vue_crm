@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import messages from '@/utils/messages'
+// import messages from '@/utils/messages'
 
 export default {
   computed: {
@@ -14,10 +14,9 @@ export default {
     }
   },
   watch: {
-    error(fbError) {
-      console.log(fbError);
-      this.$error(messages[fbError.code] || 'Что-то пошло не так...')
-    }
+    // error(fbError) {
+    //   this.$error(messages[fbError.code] || 'Что-то пошло не так...')
+    // }
   }
 }
 </script>

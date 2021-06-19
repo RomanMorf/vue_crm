@@ -13,12 +13,11 @@
     <div v-else class="row">
 
       <HomeBill
-        :rates="currency.rates"
+        :rates="currencyRates"
         />
 
-      <HomeCurrency
-        :rates="currency.rates"
-        :date="currency.date"
+      <HomeCurrencyPivatBank
+        :rates="currencyRates"
         />
 
     </div>
@@ -28,30 +27,43 @@
 
 <script>
 import HomeBill from '@/components/HomeBill.vue'
-import HomeCurrency from '@/components/HomeCurrency.vue'
-
+import HomeCurrencyPivatBank from '@/components/HomeCurrencyPivatBank.vue'
+// import messages from '@/utils/messages'
 
 export default {
   name: "Home",
   data: () => ({
     loading: true,
-    currency: null,
+    currencyRates: null,
   }),
   async mounted() {
-    this.currency = await this.$store.dispatch('fetchCurrency')
-    // console.log(this.currency, 'this.currency');
+    this.currencyRates = await this.$store.dispatch('fetchCurrencyPrivatBank')
     this.loading = false
+    // if (messages[this.$route.query.message]) {
+    //   this.$message(messages[this.$route.query.message])
+    // }
+
   },
   methods: {
     async refresh() {
+      
       this.loading = true
-      this.currency = await this.$store.dispatch('fetchCurrency')
+
+      try {
+        this.currencyRates = await this.$store.dispatch('fetchCurrencyPrivatBank')
+        await this.$store.dispatch('fetchInfo')
+
+      } catch (error) {
+        this.$message('Error', error)
+        throw error
+      }
+
       this.loading = false
     }
   },
   components: {
     HomeBill,
-    HomeCurrency
+    HomeCurrencyPivatBank
   }
 };
 </script>

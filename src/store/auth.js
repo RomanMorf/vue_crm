@@ -3,38 +3,41 @@ import firebase from 'firebase/app'
 export default {
   actions: {
 
-    // Авторизация
-    async login ({dispatch, commit}, {email, password}) {
+    async login ({commit}, {email, password}) { // Авторизация
       try {
         await firebase.auth().signInWithEmailAndPassword(email, password)
       } catch (e) {
-        console.log(dispatch, commit);
         commit('setError', e)
         throw e
       }
 
     },
 
-    // Выйти из аккаунта
-    async logout({commit}) {
+    async logout({commit}) {  // Выйти из аккаунта
       await firebase.auth().signOut()
       commit('clearInfo')
     },
 
-    // получить ID пользователя
-    getUid () {
+    getUid () { // получить ID пользователя
       const user = firebase.auth().currentUser
       return user ? user.uid : null
     },
 
-    // регистрация
-    async register ({dispatch, commit}, {email, password, name}) {
+    getUserData() { // получить данные из формы аутентификации
+      const userData = firebase.auth().currentUser
+      return userData ? userData : null
+    },
+
+    async register ({dispatch, commit}, {email, password, name}) { // регистрация
       try {
         await firebase.auth().createUserWithEmailAndPassword(email, password)
-        console.log('new user created');
+        await firebase.auth().sendPasswordResetEmail
+        await firebase.auth().verifyPasswordResetCode
+        await firebase.auth().confirmPasswordReset
+
         const uid = await dispatch('getUid');
-        await firebase.database().ref(`/users/${uid}/info`).set({
-          bill: 126540,
+        await firebase.database().ref(`/users/${uid}/userInfo`).set({
+          bill: 100000,
           name: name,
           email: email,
         })
@@ -44,5 +47,6 @@ export default {
       }
 
     },
+
   },
 }

@@ -22,8 +22,8 @@ export default {
     links: [
       {title: 'Счет', url: '/', exact: true}, //исключить "/"
       {title: 'История', url: '/history',},
-      {title: 'Планирование', url: '/planning',},
       {title: 'Новая запись', url: '/record',},
+      {title: 'Планирование', url: '/planning',},
       {title: 'Категории', url: '/categories',},
     ]
   })
