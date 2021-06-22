@@ -1,0 +1,35 @@
+{
+  "ProfileTitle": "Профиль",
+  "Name": "Имя",
+  "Btn_Update": "Обновить",
+
+  "Message_EnterName": "Поле Имя не может быть пустым",
+  "Message_NoCategories": "Категории пока не созданы. ",
+  "Message_CreateNewCategory": "Создать категорию",
+
+  "Menu_Bill": "Счет",
+  "Menu_History": "История",
+  "Menu_Record": "Новая запись",
+  "Menu_Planning": "Планирование",
+  "Menu_Categories": "Категории",
+  "Menu_Profile": "Профиль",
+  "Menu_Loguot": "Выход",
+
+  "Page_Bill_Bill" : "Счет",
+
+  "HomeBill_Currencies": "Счет в валюте",
+  "HomeCurrency_CurrencyesRates": "Курс валют",
+  "HomeCurrency_Currency": "Валюта",
+  "HomeCurrency_Buy": "Покупка",
+  "HomeCurrency_Sale": "Продажа",
+
+  "Categories": "Категории",
+  "Detail": "Подробно",
+  "History": "История записей",
+  "Bill": "Счет",
+  "NotFound": "Страница не найдена",
+  "Planning": "Планированние",
+  "Record": "Новая запись",
+  "Edit": "Редактировать запись"
+
+}

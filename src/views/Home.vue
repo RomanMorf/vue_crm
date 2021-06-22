@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-title">
-      <h3>Счет</h3>
+      <h3>{{'Page_Bill_Bill' | localize}}</h3>
 
       <button class="btn waves-effect waves-light btn-small" @click="refresh">
         <i class="material-icons">refresh</i>
@@ -32,6 +32,12 @@ import HomeCurrencyPivatBank from '@/components/HomeCurrencyPivatBank.vue'
 
 export default {
   name: "Home",
+  metaInfo() {
+    return {
+      title: this.$title('Bill')
+    }
+  },
+
   data: () => ({
     loading: true,
     currencyRates: null,

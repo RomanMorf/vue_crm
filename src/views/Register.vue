@@ -64,7 +64,24 @@
             >Длинна пароля должна быть минимум {{ this.$v.name.$params.minLength.min }} символов. Сейчас он {{ password.length }}</small>
 
         </div>
-        <p>
+        <p>Выберите язык:
+          <label class="radio">
+            <input type="radio" 
+              v-model="locale"
+              checked
+              :value='"ru-RU"'
+            />
+            <span>Русский</span>
+          </label>
+          <label class="radio">
+            <input type="radio" 
+              v-model="locale"
+              :value='"en-US"'
+            />
+            <span>English</span>
+          </label>
+        </p>
+        <p class="checkbox">
           <label>
             <input type="checkbox" 
               v-model="agree"
@@ -107,6 +124,7 @@ export default {
     email: '',
     password: '',
     name: '',
+    locale: 'ru-RU',
     agree: false,
   }),
 
@@ -119,6 +137,31 @@ export default {
   },
 
   methods: {
+    async submitHandler () {
+      const formDara = {
+        email: this.email,
+        password: this.password,
+        name: this.name,
+        locale: this.locale || 'ru_RU',
+      }
+
+      if (this.$v.$invalid) {
+        this.$v.$touch()
+        return
+      }
+
+      try {
+        await this.$store.dispatch('register', formDara)
+        this.$router.push('/?message=wellcome')
+      } catch (error) {
+        if (messages[error.code]) {
+          // this.$message(messages[error.code])
+          throw error
+        }
+
+      }
+    },
+
     // // test -------------------------------------------------
     // async testReg () {
     //   function getRandomInt(min, max) {
@@ -148,33 +191,6 @@ export default {
     //   }
     // },
     // // test -------------------------------------------------
-
-
-    async submitHandler () {
-      const formDara = {
-        email: this.email,
-        password: this.password,
-        name: this.name,
-      }
-
-      if (this.$v.$invalid) {
-        this.$v.$touch()
-        return
-      }
-
-      // console.log(formDara, 'formDara');
-
-      try {
-        await this.$store.dispatch('register', formDara)
-        this.$router.push('/?message=wellcome')
-      } catch (error) {
-        if (messages[error.code]) {
-          // this.$message(messages[error.code])
-          throw error
-        }
-
-      }
-    },
   },
 
   destroyed() { 
@@ -183,3 +199,12 @@ export default {
 
 }
 </script>
+
+<style scoped>
+  .radio {
+    margin-right: 10px;
+  }
+  .card .card-content p.checkbox {
+    margin-top: 10px;
+  }
+</style>

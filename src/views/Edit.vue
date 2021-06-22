@@ -110,7 +110,13 @@
 
 <script>
 export default {
-  name: 'detail',
+  name: 'edit',
+  metaInfo() {
+    return {
+      title: this.$title('Edit')
+    }
+  },
+
   data() {
     return {
       loading: true,

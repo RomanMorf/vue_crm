@@ -28,18 +28,19 @@ export default {
       return userData ? userData : null
     },
 
-    async register ({dispatch, commit}, {email, password, name}) { // регистрация
+    async register ({dispatch, commit}, {email, password, name, locale}) { // регистрация
       try {
         await firebase.auth().createUserWithEmailAndPassword(email, password)
-        await firebase.auth().sendPasswordResetEmail
-        await firebase.auth().verifyPasswordResetCode
-        await firebase.auth().confirmPasswordReset
+        // await firebase.auth().sendPasswordResetEmail
+        // await firebase.auth().verifyPasswordResetCode
+        // await firebase.auth().confirmPasswordReset
 
         const uid = await dispatch('getUid');
         await firebase.database().ref(`/users/${uid}/userInfo`).set({
           bill: 100000,
           name: name,
           email: email,
+          locale: locale || 'ru_RU',
         })
       } catch (e) {
         commit('setError', e)

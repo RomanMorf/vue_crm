@@ -3,11 +3,14 @@ import Vuelidate from "vuelidate";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
+import VueMeta from 'vue-meta'
 
 import Paginate from 'vuejs-paginate'
 import dateFilter from '@/filters/date.filter' // импортируем фильтр
 import currencyFilter from '@/filters/currency.filter' // импортируем фильтр
+import localizeFilter from '@/filters/localize.filter' // импортируем фильтр
 import messagePlugin from '@/utils/message.plugin' // импортируем наш плагин сообщений
+import titlePlugin from '@/utils/title.plugin' // импортируем наш плагин сообщений
 import firebase from 'firebase/app'
 import Loader from '@/components/app/Loader.vue'
 import tooltipDirective from '@/directives/tooltip.directive'
@@ -40,8 +43,11 @@ Vue.config.productionTip = false;
 
 Vue.use(Vuelidate);
 Vue.use(messagePlugin);
+Vue.use(titlePlugin);
+Vue.use(VueMeta);
 Vue.filter('date', dateFilter); // создаем фильтр и передаем в него настройки
 Vue.filter('currency', currencyFilter); // создаем фильтр и передаем в него настройки
+Vue.filter('localize', localizeFilter); // создаем фильтр и передаем в него настройки
 Vue.directive('tooltip', tooltipDirective); // глобально регистрируем директиву
 
 let app;

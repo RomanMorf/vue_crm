@@ -1,0 +1,34 @@
+{
+  "ProfileTitle": "Profile",
+  "Name": "Name",
+  "Btn_Update": "Update",
+
+  "Message_EnterName": "Enter name",
+  "Message_NoCategories": "There are no categories, right now",
+  "Message_CreateNewCategory": "Create new Category",
+
+  "Menu_Bill": "Bill",
+  "Menu_History": "History",
+  "Menu_Record": "New record",
+  "Menu_Planning": "Planning",
+  "Menu_Categories": "Categories",
+  "Menu_Profile": "Profile",
+  "Menu_Loguot": "Loguot",
+
+  "Page_Bill_Bill" : "Bill",
+
+  "HomeBill_Currencies": "Account in currencies",
+  "HomeCurrency_CurrencyesRates": "Currency Rates",
+  "HomeCurrency_Currency": "Currency",
+  "HomeCurrency_Buy": "Buy",
+  "HomeCurrency_Sale": "Sale",
+
+  "Categories": "Categories",
+  "Detail": "Detail",
+  "History": "History",
+  "Bill": "Bill",
+  "NotFound": "NotFound",
+  "Planning": "Planning",
+  "Record": "New record",
+  "Edit": "Edit record"
+}
