@@ -27,11 +27,8 @@
   </div>
 </template>
 
-
 <script>
 import {mapGetters} from 'vuex'
-// import currencyFilter from '@/filters/currency.filter'
-// import localizeFilter from '@/filters/localize.filter' // импортируем фильтр
 
 export default {
   name: 'palnning',
@@ -75,7 +72,6 @@ export default {
             ? 'yellow'
             : 'red'
         const tooltipValue = cat.limit - spend
-        // const tooltip = `${tooltipValue < 0 ? localizeFilter('Message_ExcessBy') : localizeFilter('Message_Left')} ${currencyFilter(Math.abs(tooltipValue))}`
         const tooltip = `${tooltipValue < 0 
           ? 'Message_Excess' 
           : 'Message_Left'}`
