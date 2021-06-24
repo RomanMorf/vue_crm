@@ -16,6 +16,7 @@
         :categories="categories"
         :key="categories.length + updateCount"
         @update="updateCategories"
+        @deleteCat="deleteCategory"
         />
 
         <p class="center" v-else>{{'Message_NoCategories' | localize}}.</p>
@@ -29,8 +30,6 @@
 <script>
 import CategoryCreate from '@/components/CategoryCreate'
 import CategoryEdit from '@/components/CategoryEdit'
-
-
 
 export default {
   name: 'categories',
@@ -51,10 +50,10 @@ export default {
     this.loading = false
   },
   methods: {
-    addNewCategory (category) {
+    addNewCategory (category) { // добавить категорию
       this.categories.push(category)
     },
-    updateCategories(editedCategory) {
+    updateCategories(editedCategory) { // обновить категории
       // this.categories.forEach(cat => {
       //   if (cat.id == editedCategory.id) {
       //     cat.title = editedCategory.title
@@ -66,7 +65,12 @@ export default {
       this.categories[index].title = editedCategory.title
       this.categories[index].limit = editedCategory.limit
       this.updateCount++
-    }
+    },
+    deleteCategory(categoryForDelete) { // удалить категорию
+      const index = this.categories.findIndex(c => c.id === categoryForDelete.id)
+      this.categories.splice(index, 1)
+      this.updateCount++
+    },
   },
   components: {
     CategoryCreate,

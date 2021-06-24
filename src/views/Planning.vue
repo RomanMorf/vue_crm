@@ -2,7 +2,7 @@
   <div>
     <div class="page-title">
       <h3>{{'Planning' | localize}}</h3>
-      <h4>{{ info.bill | currency('UAH')}}</h4>
+      <h4 v-show="(info.bill)">{{ info.bill | currency('UAH')}}</h4>
     </div>
 
     <Loader v-if="loading"/>

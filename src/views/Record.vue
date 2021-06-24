@@ -67,13 +67,8 @@
           id="description"
           type="text"
           v-model="description"
-          :class="{invalid: $v.description.$dirty && !$v.description.required}"
       >
       <label for="description">{{'Message_Description' | localize}}</label>
-      <span
-            class="helper-text invalid"
-            v-if="$v.description.$dirty && !$v.description.required"
-            >{{'Message_EnterDescription' | localize}}</span>
     </div>
 
     <button class="btn waves-effect waves-light" type="submit">
@@ -110,7 +105,6 @@ export default {
   },
     validations: {
     amount: {required, minValue: minValue(1)},
-    description: {required},
   },
   computed: {
     ...mapGetters(['info']),
@@ -118,7 +112,6 @@ export default {
       if (this.type === 'income') {
         return true
       } 
-
       return this.info.bill >= this.amount ? true : false
     },
   },

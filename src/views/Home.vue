@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-title">
-      <h3>{{'Menu_Bill' | localize}}: {{info.bill | currency('UAH')}}</h3>
+      <h3>{{'Menu_Bill' | localize}}: <span v-show="(info.bill)">{{info.bill | currency('UAH')}}</span></h3>
 
       <button class="btn waves-effect waves-light btn-small" @click="refresh">
         <i class="material-icons">refresh</i>

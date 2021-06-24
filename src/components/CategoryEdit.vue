@@ -57,6 +57,10 @@
           {{'Btn_Edit' | localize}}
           <i class="material-icons right">send</i>
         </button>
+        <button class="btn waves-effect waves-light ml-10" @click.prevent="categoryDelete">
+          {{'Btn_Delete' | localize}}
+          <i class="material-icons right">delete</i>
+        </button>
       </form>
     </div>
   </div>
@@ -65,6 +69,7 @@
 
 <script>
 import {required, minValue} from 'vuelidate/lib/validators' // импортируем валидаторы
+import messages from '@/utils/messages'
 
 export default {
   props: {
@@ -83,7 +88,7 @@ export default {
     }
   },
   methods: {
-    async submitHandler() {
+    async submitHandler() { // редактировать категорию
       if (this.$v.$invalid) {
         this.$v.$touch()
         return
@@ -102,6 +107,32 @@ export default {
         throw error
       }
     },
+    async categoryDelete() { // удалить категорию
+      try {
+        const categoryForDelete = {
+        id: this.id
+        }
+        await this.$store.dispatch('deleteCategory', categoryForDelete)
+
+        this.$message('Категория была удалена')
+        this.$emit('deleteCat', categoryForDelete)
+        
+        setTimeout(() => {
+          this.select = window.M.FormSelect.init(this.$refs.select);
+        }, 0)
+
+        this.title = ''
+        this.limit = ''
+        this.id = ''
+
+      } catch (error) {
+        if (messages[error.code]) {
+          this.$message(messages[error.code])
+          throw error
+        }
+      }
+
+    }
   },
   validations: {
     title: {required},
@@ -144,3 +175,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .btn.waves-effect.waves-light.ml-10 {
+    margin-left: 20px;
+  }
+</style>

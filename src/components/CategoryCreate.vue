@@ -70,7 +70,7 @@ export default {
 
       this.$message(`Категория ${this.title} была создана`)
       this.title = ''
-      this.limit = 100
+      this.limit = ''
       this.$v.$reset() // очищаем поля категории и фильтры валидации
       this.$emit('created', category)
 

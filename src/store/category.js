@@ -21,11 +21,20 @@ export default {
     async editCategory({commit, dispatch}, {title, limit, id}) { // редактровать категорию
       try {
         const uid = await dispatch('getUid')
-        // await firebase.database().ref(`/users/${uid}/categories/${id}/`).set({title, limit})
         await firebase.database().ref(`/users/${uid}/categories/`).child(id).update({title, limit})
+
       } catch (error) {
-      
         commit('setError', error)
+        throw error
+      }
+    },    
+    async deleteCategory({commit, dispatch}, {id}) { // удалить категорию
+      try {
+        const uid = await dispatch('getUid')
+        await firebase.database().ref(`/users/${uid}/categories/`).child(id).remove()
+
+      } catch (error) {
+              commit('setError', error)
         throw error
       }
     },
@@ -55,7 +64,7 @@ export default {
         throw error
       }
     },    
-    async fetchCategoryById({commit, dispatch}, id) { // получить список категориц по Id
+    async fetchCategoryById({commit, dispatch}, id) { // получить категорию по Id
       try {
         const uid = await dispatch('getUid')
         const category = (await firebase.database().ref(`/users/${uid}/categories`).child(id).once('value')).val()
