@@ -113,6 +113,7 @@
 
 <script>
 import localizeFilter from '@/filters/localize.filter' // импортируем фильтр
+import {mapGetters} from 'vuex'
 
 export default {
   name: 'edit',
@@ -130,7 +131,7 @@ export default {
       categories: null,
       current: null,
       id: '',
-      diference: null,
+      startAmount: null,
     }
   },
   methods: {
@@ -140,6 +141,7 @@ export default {
     },
     btnSave() { // кнопка сохранить изменения
       this.edit = true
+      
       const editedRecord = {
         amount: this.record.amount,
         categoryId: this.current,
@@ -150,6 +152,8 @@ export default {
       const id = this.record.id
       this.$store.dispatch('editRecord', {editedRecord, id})
       this.$router.push('/history')
+
+      this.billUpdate()
     },
     btnCancel() { // кнопка отмены редактирования
       this.edit = true
@@ -170,9 +174,38 @@ export default {
         ...record,
         categoryName: category.title
       }
+      this.startAmount = this.record.amount
 
       this.loading = false
     },
+    async billUpdate() {
+      var difAmount = null
+      var newBill = null
+
+      if (this.record.type === 'outcome' && this.record.amount > this.startAmount) {
+        difAmount = this.record.amount - this.startAmount
+        newBill = this.info.bill - difAmount
+        this.$store.dispatch('updateInfo', {bill: newBill})
+      }
+
+      if (this.record.type === 'outcome' && this.record.amount < this.startAmount) {
+        difAmount = this.startAmount - this.record.amount
+        newBill = this.info.bill + difAmount
+        this.$store.dispatch('updateInfo', {bill: newBill})
+      }
+
+      if (this.record.type === 'income' && this.record.amount < this.startAmount) {
+        difAmount = this.startAmount - this.record.amount
+        newBill = this.info.bill - difAmount
+        this.$store.dispatch('updateInfo', {bill: newBill})
+      }
+
+      if (this.record.type === 'income' && this.record.amount > this.startAmount) {
+        difAmount = this.record.amount - this.startAmount
+        newBill = this.info.bill + difAmount
+        this.$store.dispatch('updateInfo', {bill: newBill})
+      }
+    }
   },
 
   async mounted() {
@@ -194,7 +227,7 @@ export default {
       categoryName: category.title
     }
 
-    this.diference = this.record.amount
+    this.startAmount = this.record.amount
 
     this.loading = false
   },
@@ -212,7 +245,9 @@ export default {
     },
     textForPlaceholder() {
       return localizeFilter('Message_EnterDescription')
-    }
+    },
+    ...mapGetters(['info']),
+
   },
 
 }
