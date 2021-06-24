@@ -42,7 +42,7 @@
               id="limit_edit"
               type="number"
               v-model.number="limit"
-              :class="{invalid: $v.limit.$dirty && !$v.limit.minValue}"
+              :class="{invalid: $v.limit.$dirty && this.limit < $v.limit.minValue}"
           >
           <label for="limit_edit">{{'Message_Limit' | localize}}</label>
           <span 
@@ -105,13 +105,17 @@ export default {
   },
   validations: {
     title: {required},
-    limit: {minValue: minValue(100)},
+    limit: {minValue: minValue(0)},
   },
   created() { // получаем начальные значения для полей
     const {id, title, limit} = this.categories[0]
     this.id = id
     this.title = title
     this.limit = limit
+    setTimeout(() => {
+      this.select = window.M.FormSelect.init(this.$refs.select);
+    }, 0)
+
   },
   mounted() {
     setTimeout(() => {

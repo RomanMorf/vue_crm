@@ -18,7 +18,7 @@
             class="helper-text invalid"
             v-if="$v.title.$dirty && !$v.title.required"
           >
-            {{'Message_EnterName' | localize}}
+            {{'Message_CategoryName' | localize}}
           </span>
         </div>
 
@@ -27,15 +27,8 @@
               id="limit"
               type="number"
               v-model="limit"
-              :class="{invalid: $v.limit.$dirty && !$v.limit.minValue}"
           >
           <label for="limit">{{'Message_Limit' | localize}}</label>
-          <span 
-            class="helper-text invalid"
-            v-if="$v.limit.$dirty && !$v.limit.minValue"
-          >
-            {{'Message_MinimalAmount' | localize}} {{ $v.limit.$params.minValue.min }}
-          </span>
         </div>
 
 
@@ -49,7 +42,7 @@
 </template>
 
 <script>
-import {required, minValue} from 'vuelidate/lib/validators' // импортируем валидаторы
+import {required} from 'vuelidate/lib/validators' // импортируем валидаторы
 
 export default {
   data() {
@@ -60,7 +53,6 @@ export default {
   },
   validations: {
     title: {required},
-    limit: {minValue: minValue(100)},
   },
   mounted() {
     window.M.updateTextFields();
