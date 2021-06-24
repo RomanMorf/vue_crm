@@ -5,6 +5,8 @@
   "Btn_Create": "Создать",
   "Btn_Edit": "Редактировать",
   "Btn_Delete": "Удалить",
+  "Btn_Save": "Сохранить",
+  "Btn_Cancel": "Отменить",
   "Btn_ShowGraph": "Показать график",
   "Btn_HideGraph": "Спрятать график",
   "Btn_Register": "Зарегистрироваться",
@@ -38,6 +40,9 @@
   "Message_LogIn": "Войти",
   "Message_Auth": "Авторизация",
   "Message_HaveNoAccount": "Нет аккаунта?",
+  "Message_RecordCreated": "Запись создана",
+  "Message_RecordWithId": "Запись с ID",
+  "Message_NotFound": "не найдена",
 
   "Message_Left": "Лимит не превышен",
   "Message_Excess": "Лимит превышен",
@@ -69,6 +74,7 @@
   "HistoryTable_OpenRecord": "Открыть запись",
   "HistoryTable_EditRecord": "Редактировать запись",
   "HistoryTable_DeleteRecord": "Удалить запись",
+  "HistoryTable_Deleted": "... Удалена ...",
 
   "Paginate_Back": "Назад",
   "Paginate_Forward": "Вперёд",

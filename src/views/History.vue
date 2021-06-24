@@ -109,9 +109,17 @@ export default {
       const categories = await this.$store.dispatch('fetchCategories')
 
       this.setupPagination(this.records.map(record => { // отрисовать пагинацию
+        var catName = ''
+        categories.forEach( (c) => {
+          if (record.categoryId === c.id) {
+            catName = c.title
+          }
+        })
+        
+
         return {
           ...record,
-          categoryName: categories.find(c => c.id == record.categoryId).title || '',
+          categoryName: catName || localizeFilter('HistoryTable_Deleted'),
           typeClass: record.type === 'income' ? 'green' : 'red',
           typeText: record.type === 'income' 
             ? localizeFilter('HistoryTable_Income') 
@@ -171,8 +179,8 @@ export default {
       return localizeFilter('Paginate_Forward')
     },
   },
-  watch: {
-    tableType() {
+  watch: { 
+    tableType() { // смена вида таблицы в зависимости от значения
       this.setup();
     }
   },

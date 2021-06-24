@@ -5,6 +5,8 @@
   "Btn_Create": "Створити",
   "Btn_Edit": "Редагувати",  
   "Btn_Delete": "Видалити",
+  "Btn_Save": "Зберегти",
+  "Btn_Cancel": "Відмініти",
   "Btn_ShowGraph": "Показати графік",
   "Btn_HideGraph": "Сховати графік",
   "Btn_Register": "Зареєструватися",
@@ -38,6 +40,9 @@
   "Message_LogIn": "Увійти",
   "Message_Auth": "Авторизація",
   "Message_HaveNoAccount": "Нема аккаунта?",
+  "Message_RecordCreated": "Запис створено",
+  "Message_RecordWithId": "Запис з ID",
+  "Message_NotFound": "не знайдено",
 
   "Message_Left": "Ліміт не перевищенно",
   "Message_Excess": "Ліміт перевищенно",
@@ -69,6 +74,7 @@
   "HistoryTable_OpenRecord": "Відкріти запис",
   "HistoryTable_EditRecord": "Редагувати запис",
   "HistoryTable_DeleteRecord": "Видалити запис",
+  "HistoryTable_Deleted": "... Видалена ...",
 
   "Paginate_Back": "Назад",
   "Paginate_Forward": "Вперед",

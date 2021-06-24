@@ -5,6 +5,8 @@
   "Btn_Create": "Create",
   "Btn_Edit": "Edit",
   "Btn_Delete": "Delete",
+  "Btn_Save": "Save",
+  "Btn_Cancel": "Cancel",
   "Btn_ShowGraph": "Show Graph",
   "Btn_HideGraph": "Hide Graph",
   "Btn_Register": "Register",
@@ -38,6 +40,9 @@
   "Message_LogIn": "LogIn",
   "Message_Auth": "Authorization",
   "Message_HaveNoAccount": "Have no account?",
+  "Message_RecordCreated": "Record created",
+  "Message_RecordWithId": "Record with ID",
+  "Message_NotFound": "not found",
 
   "Message_Left": "Your limit is not excessed",
   "Message_Excess": "Limit excessed",
@@ -69,6 +74,7 @@
   "HistoryTable_OpenRecord": "Open Record",
   "HistoryTable_EditRecord": "Edit Record",
   "HistoryTable_DeleteRecord": "Delete Record",
+  "HistoryTable_Deleted": "... Deleted ...",
 
   "Paginate_Back": "Back",
   "Paginate_Forward": "Forward",

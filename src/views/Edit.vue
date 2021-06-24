@@ -4,9 +4,9 @@
   <Loader v-if="loading"/>
   <div v-else-if="record">
     <div class="breadcrumb-wrap">
-      <router-link to="/history" class="breadcrumb">История</router-link>
+      <router-link to="/history" class="breadcrumb">{{'Menu_History' | localize}}</router-link>
       <a @click.prevent class="breadcrumb">
-        {{ record.type === 'income' ? 'Доход' : 'Расход' }}
+        {{ recType }}
       </a>
     </div>
     <div class="row">
@@ -17,7 +17,7 @@
                 @click="btnEdit"
                 v-show="edit"
                 class="btn-small btn right" 
-                v-tooltip='"Редактировать запись"'
+                v-tooltip='"Btn_Edit"'
               >
               <i class="material-icons">edit</i>
               </button>              
@@ -25,19 +25,22 @@
                 @click="btnCancel"
                 v-show="!edit"
                 class="btn-small btn right" 
-                v-tooltip='"Отменить редактирование"'
+                v-tooltip='"Btn_Cancel"'
               >
               <i class="material-icons">cancel</i>
               </button>
 
 
-            <p>Описание: {{ record.description }}</p>
+            <p v-show="record.description">{{'Message_Description' | localize}}: {{ record.description }}</p>
             <input 
+            id="description"
             v-model="record.description"
             v-show="!edit"
+            :placeholder="textForPlaceholder"
             >
+
             
-            <p>Сумма: {{ record.amount | currency }}</p>
+            <p>{{'Message_Sum' | localize}}: {{ record.amount | currency }}</p>
             <input 
             type="number"
             v-model="record.amount"
@@ -54,7 +57,7 @@
                   value="income"
                   v-model="record.type"
                 />
-                <span>Доход</span>
+                <span>{{'HistoryTable_Income' | localize}}</span>
               </label>
 
               <label v-show="!edit">
@@ -65,13 +68,13 @@
                   value="outcome"
                   v-model="record.type"
                 />
-                <span>Расход</span>
+                <span>{{'HistoryTable_Outcome' | localize}}</span>
               </label>
             </p>
 
             <br v-show="!edit">
-            <p v-show="edit">Категория: {{ record.categoryName }}</p>
-            <p v-show="!edit">Категория: </p>
+            <p v-show="edit">{{'HistoryTable_Category' | localize}}: {{ record.categoryName }}</p>
+            <p v-show="!edit">{{'HistoryTable_Category' | localize}}: </p>
             <div v-show="!edit">
               <select 
                 ref="select" 
@@ -88,12 +91,12 @@
             </div>
 
 
-            <small>Запись создана: {{ record.date | date('datetime')}}</small>
+            <small>{{'Message_RecordCreated' | localize}}: {{ record.date | date('datetime')}}</small>
               <button 
                 @click="btnSave"
                 v-show="!edit"
                 class="btn-small btn right" 
-                v-tooltip='"Сохранить запись"'
+                v-tooltip='"Btn_Save"'
               >
               <i class="material-icons">save</i>
               </button>
@@ -103,12 +106,14 @@
       </div>
     </div>
   </div>
-  <p class="center" v-else> Запись с Id={{$route.params.id}} не найдена</p>
+  <p class="center" v-else> {{'Message_RecordWithId' | localize}}={{$route.params.id}} {{'Message_NotFound' | localize}}</p>
 </div>
 
 </template>
 
 <script>
+import localizeFilter from '@/filters/localize.filter' // импортируем фильтр
+
 export default {
   name: 'edit',
   metaInfo() {
@@ -132,7 +137,7 @@ export default {
       this.edit = false
 
     },
-    btnSave() { // кнопка сохранить
+    btnSave() { // кнопка сохранить изменения
       this.edit = true
       const editedRecord = {
         amount: this.record.amount,
@@ -145,8 +150,27 @@ export default {
       this.$store.dispatch('editRecord', {editedRecord, id})
       this.$router.push('/history')
     },
-    btnCancel() {
+    btnCancel() { // кнопка отмены редактирования
       this.edit = true
+      this.cancelEdit()
+    },
+    async cancelEdit() { // отменить редактирование и загрузить данные снова
+      this.loading = true
+
+      const id = this.$route.params.id
+      const record = await this.$store.dispatch('fetchRecordById', id)
+      const category = await this.$store.dispatch('fetchCategoryById', record.categoryId)
+      this.categories = await this.$store.dispatch('fetchCategories')
+      this.current = record.categoryId
+      
+      window.M.updateTextFields();
+
+      this.record = {
+        ...record,
+        categoryName: category.title
+      }
+
+      this.loading = false
     },
   },
 
@@ -176,5 +200,17 @@ export default {
       this.select.destroy()
     }
   },
+  computed: {
+    recType () {
+      if (this.record.type === 'income') {
+        return localizeFilter('HistoryTable_Income')
+      }
+      return localizeFilter('HistoryTable_Outcome')
+    },
+    textForPlaceholder() {
+      return localizeFilter('Message_EnterDescription')
+    }
+  },
+
 }
 </script>
