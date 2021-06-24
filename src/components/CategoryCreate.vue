@@ -31,7 +31,6 @@
           <label for="limit">{{'Message_Limit' | localize}}</label>
         </div>
 
-
         <button class="btn waves-effect waves-light" type="submit">
           {{'Btn_Create' | localize}}
           <i class="material-icons right">send</i>
