@@ -43,7 +43,6 @@
           type="radio"
           value="outcome"
           v-model="type"
-
         />
         <span>{{'HistoryTable_Outcome' | localize}}</span>
       </label>
@@ -55,7 +54,6 @@
           type="number"
           v-model="amount"
           :class="{invalid: $v.amount.$dirty && !$v.amount.minValue}"
-
       >
       <label for="amount">{{'Message_Sum' | localize}}</label>
       <span 
@@ -70,7 +68,6 @@
           type="text"
           v-model="description"
           :class="{invalid: $v.description.$dirty && !$v.description.required}"
-
       >
       <label for="description">{{'Message_Description' | localize}}</label>
       <span
@@ -181,7 +178,5 @@ export default {
     }
     window.M.Toast.dismissAll();
   },
-
-
 }
 </script>

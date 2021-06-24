@@ -114,7 +114,6 @@ import messages from '@/utils/messages'
 import LangSwitch from '@/components/LangSwitch'
 import store from '@/store'
 
-
 export default {
   name: 'register',
 
@@ -185,7 +184,6 @@ export default {
   destroyed() { 
     window.M.Toast.dismissAll();
   },
-
 }
 </script>
 
