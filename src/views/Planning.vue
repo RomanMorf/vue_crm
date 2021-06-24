@@ -10,7 +10,7 @@
     <p class="center" v-else-if="!categories.length">{{'Message_NoCategories' | localize}} <router-link to="/categories">{{'Message_CreateNewCategory' | localize}}</router-link> </p>
 
     <section v-else>
-      <div v-for="cat in categories" :key="cat.id">
+      <div v-for="cat in noLimitCategories" :key="cat.id">
         <p>
           <strong>{{ cat.title }}:</strong>
           {{ cat.spend | currency('UAH') }} из {{ cat.limit | currency('UAH') }}
@@ -40,7 +40,6 @@ export default {
       title: this.$title('Planning')
     }
   },
-
   data() {
     return {
       loading: true,
@@ -48,7 +47,13 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['info'])
+    ...mapGetters(['info']),
+    noLimitCategories () { // фильтруем категории - ТОЛЬКО с лимитом
+      const noLimitCat = this.categories.filter( (cat) => {
+        return cat.limit > 0
+      })
+      return noLimitCat
+    }, 
   },
   async mounted() {
     const records = await this.$store.dispatch('fetchRecord')
