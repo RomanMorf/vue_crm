@@ -31,6 +31,7 @@ export default {
     async register ({dispatch, commit}, {email, password, name, locale}) { // регистрация
       try {
         await firebase.auth().createUserWithEmailAndPassword(email, password)
+
         // await firebase.auth().sendPasswordResetEmail
         // await firebase.auth().verifyPasswordResetCode
         // await firebase.auth().confirmPasswordReset

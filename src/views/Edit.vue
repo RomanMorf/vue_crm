@@ -11,7 +11,7 @@
     </div>
     <div class="row">
       <div class="col s12 m12">
-        <div class="card">
+        <div>
           <div class="card-content black-text">
               <button 
                 @click="btnEdit"
@@ -88,7 +88,7 @@
             </div>
 
 
-            <small>{{ record.date | date('datetime')}}</small>
+            <small>Запись создана: {{ record.date | date('datetime')}}</small>
               <button 
                 @click="btnSave"
                 v-show="!edit"
@@ -147,7 +147,7 @@ export default {
     },
     btnCancel() {
       this.edit = true
-    }
+    },
   },
 
   async mounted() {

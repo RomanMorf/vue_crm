@@ -19,7 +19,9 @@ export default {
       try {
         const uid = await dispatch('getUid')
         const updateData = {...getters.info, ...toUpdate}
-        await firebase.database().ref(`/users/${uid}/userInfo`).set(updateData)
+        if (uid) {
+          await firebase.database().ref(`/users/${uid}/userInfo`).set(updateData)
+        }
         commit('setInfo', updateData)
 
       } catch (error) {
@@ -37,35 +39,18 @@ export default {
         commit('setError', error)
         throw error
       }
-      
-    }
+    },
+    //   async updateInfoLocale({commit, getters}, locale) { // обновить инфо Локализация
+    //   try {
+    //     const updateData = {...getters.info, ...locale}
+    //     commit('setInfo', updateData)
+
+    //   } catch (error) {
+    //     commit('setError', error)
+    //     throw error
+    //   }
+    // }
   },
-  // actions: {
-  //   async updateInfo({dispatch, commit, getters}, toUpdate) { // обновить инфо
-  //     try {
-  //       const uid = await dispatch('getUid')
-  //       const updateData = {...getters.info, ...toUpdate}
-  //       await firebase.database().ref(`/users/${uid}/info`).set(updateData)
-  //       commit('setInfo', updateData)
-
-  //     } catch (error) {
-  //       commit('setError', error)
-  //       throw error
-  //     }
-  //   },
-  //   async fetchInfo ({dispatch, commit}) { //получить инфо
-  //     try {
-  //       const uid = await dispatch('getUid');
-  //       const info = (await firebase.database().ref(`/users/${uid}/info`).once('value')).val();
-  //       commit('setInfo', info);
-
-  //     } catch (error) {
-  //       commit('setError', error)
-  //       throw error
-  //     }
-      
-  //   }
-  // },
 
   getters: {
     info: s => s.info

@@ -1,16 +1,12 @@
 <template>
   <div>
     <div class="page-title">
-      <h3>История записей</h3>
-    </div>
-
-    <div class="history-chart">
-      <canvas ref="canvas"></canvas>
+      <h3>{{'History_Title' | localize}}</h3> 
     </div>
 
     <Loader v-if="loading"/>
 
-    <p class="center" v-else-if="!records.length">Пока нет ни одной записи. <router-link to="/record">Добавить новую запись</router-link> </p>
+    <p class="center" v-else-if="!records.length">{{'Message_NoRecords' | localize}} <router-link to="/record">{{'Message_CreateNewRecord' | localize}}</router-link> </p>
 
     <section v-else>
 
@@ -23,11 +19,19 @@
         v-model="page"
         :page-count="pageCount"
         :click-handler="pageChangeHandler"
-        :prev-text="'Назад'"
-        :next-text="'Вперед'"
+        :prev-text="prevBtn"
+        :next-text="nextBtn"
         :container-class="'pagination'"
         :page-class="'waves-effect'"
       />
+
+    <button class="btn waves-effect waves-light" @click="showGraph = !showGraph" v-show="!showGraph">{{'Btn_ShowGraph' | localize}}</button>
+    <button class="btn waves-effect waves-light" @click="showGraph = !showGraph" v-show="showGraph">{{'Btn_HideGraph' | localize}}</button>
+
+    <div class="history-chart" v-show="showGraph">
+      <canvas ref="canvas"></canvas>
+    </div>
+
 
     </section>
   </div>
@@ -37,6 +41,8 @@
 import HistoryTable from '@/components/HistoryTable'
 import paginationMixins from '@/mixins/pagination.mixin'
 import { Pie } from 'vue-chartjs'
+import localizeFilter from '@/filters/localize.filter' // импортируем фильтр
+
 
 export default {
   name: 'history',
@@ -53,16 +59,21 @@ export default {
       loading: true,
       records: [],
       categories: [],
+      showGraph: false,
     }
   },
   async mounted() {
     this.records = await this.$store.dispatch('fetchRecord')
-    this.records.reverse();
+
+    this.records.sort(function(a,b){
+      var c = new Date(a.date);
+      var d = new Date(b.date);
+      return d-c;
+      })
 
     this.setup()
 
     this.loading = false
-
   },
   methods: {
     deleteRecord(index) {
@@ -76,7 +87,9 @@ export default {
           ...record,
           categoryName: categories.find(c => c.id === record.categoryId).title,
           typeClass: record.type === 'income' ? 'green' : 'red',
-          typeText: record.type === 'income' ? 'Доход' : 'Расход',
+          typeText: record.type === 'income' 
+            ? localizeFilter('HistoryTable_Income') 
+            : localizeFilter('HistoryTable_Outcome'),
         }
       }))
 
@@ -113,10 +126,32 @@ export default {
       }, this.options)
     },
   },
-
+  // computed: {
+  //   sortedList () {
+  //     function compare(a, b) { return a.amount - b.amount }
+  //     function sortDate(a,b){
+  //       var c = new Date(a.date)
+  //       var d = new Date(b.date)
+  //       return c-d}
+  //     switch(this.sortParam){
+  //         case 'date': return this.records.slice(0).sort(sortDate)
+  //         case 'amount': return this.records.slice(0).sort(compare)
+  //         default: return this.records
+  //     }
+  //   }
+  // },
   components: {
     HistoryTable,
   },
+  computed: {
+    prevBtn () {
+      return localizeFilter('Paginate_Back')
+    },
+    nextBtn() {
+      return localizeFilter('Paginate_Forward')
+
+    },
+  }
 
 }
 </script>

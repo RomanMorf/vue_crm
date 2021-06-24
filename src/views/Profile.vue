@@ -43,13 +43,21 @@
       <p>Test zone</p>
       <p>Аккаунт создан: {{ currentUser.metadata.creationTime | date('date') }}</p>
       <p>Email: {{ currentUser.email }}</p>
+      <p>
+        <input v-model="date" type="date">
+      </p>
+      <button class="btn waves-effect waves-light" @click="showDate">
+        Редактировать
+        <i class="material-icons right">edit</i>
+      </button>
+
       <p>{{ currentUser.emailVerified ? 'Почта подтверждена' : 'необходимо подтвердить Email' }}</p>
       <p>Tel: {{ currentUser.phoneNumber }}</p>
 
       <button @click.prevent="confirmPass">Confirm Password</button>
       <button @click.prevent="resetPass">Reset Password</button>
     </div>
-
+    <LangSwitch/>
   </div>
 </template>
 
@@ -57,6 +65,8 @@
 import firebase from 'firebase/app'
 import {mapGetters, mapActions} from 'vuex'
 import {required} from 'vuelidate/lib/validators'
+import LangSwitch from '@/components/LangSwitch'
+
 
 export default {
   metaInfo() {
@@ -71,9 +81,9 @@ export default {
       isRuLocale: true,
 
 
-
-      user: null,
       testZone: false,
+      date: '',
+      user: null,
       currentUser: firebase.auth().currentUser,
       code: '123123Romario',
     }
@@ -120,6 +130,9 @@ export default {
       })
       this.loading = false
     },
+    showDate() {
+      console.log(this.date, 'date');
+    },
     //------------------------------------
 
   },
@@ -133,6 +146,9 @@ export default {
 
     this.loading = false
   },
+  components: {
+    LangSwitch
+  }
 }
 </script>
 

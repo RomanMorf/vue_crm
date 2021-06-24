@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-title">
-      <h3>{{'Page_Bill_Bill' | localize}}</h3>
+      <h3>{{'Menu_Bill' | localize}}</h3>
 
       <button class="btn waves-effect waves-light btn-small" @click="refresh">
         <i class="material-icons">refresh</i>
@@ -28,7 +28,7 @@
 <script>
 import HomeBill from '@/components/HomeBill.vue'
 import HomeCurrencyPivatBank from '@/components/HomeCurrencyPivatBank.vue'
-// import messages from '@/utils/messages'
+import messages from '@/utils/messages'
 
 export default {
   name: "Home",
@@ -45,10 +45,6 @@ export default {
   async mounted() {
     this.currencyRates = await this.$store.dispatch('fetchCurrencyPrivatBank')
     this.loading = false
-    // if (messages[this.$route.query.message]) {
-    //   this.$message(messages[this.$route.query.message])
-    // }
-
   },
   methods: {
     async refresh() {
@@ -60,8 +56,10 @@ export default {
         await this.$store.dispatch('fetchInfo')
 
       } catch (error) {
-        this.$message('Error', error)
-        throw error
+        if (messages[error.code]) {
+          this.$message(messages[error.code])
+          throw error
+        }
       }
 
       this.loading = false

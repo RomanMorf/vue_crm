@@ -46,9 +46,10 @@ export default {
     // tooltip: 'Создать новую запись',
   }),
   async mounted() {
-    if (!Object.keys(this.$store.getters.info).length) {
+    if (!Object.keys(this.$store.getters.info).name) {
       await this.$store.dispatch('fetchInfo')
     }
+
     this.isLoading = false
   },
   computed: {
@@ -56,7 +57,7 @@ export default {
       return this.$store.getters.error
     },
     locale () {
-      return this.$store.getters.info.locale // в случае, если будут изменения - будет перерисован по этому кобчу модуль
+      return this.$store.getters.info.locale // в случае, если будут изменения - будет перерисован модуль по этому ключу
     }
   },
   watch: {

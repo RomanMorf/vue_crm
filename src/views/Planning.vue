@@ -30,7 +30,8 @@
 
 <script>
 import {mapGetters} from 'vuex'
-import currencyFilter from '@/filters/currency.filter'
+// import currencyFilter from '@/filters/currency.filter'
+// import localizeFilter from '@/filters/localize.filter' // импортируем фильтр
 
 export default {
   name: 'palnning',
@@ -52,6 +53,7 @@ export default {
   async mounted() {
     const records = await this.$store.dispatch('fetchRecord')
     const categories = await this.$store.dispatch('fetchCategories')
+
     if (records && categories) {
     this.categories = categories.map(cat => {
       const spend = records
@@ -68,13 +70,17 @@ export default {
             ? 'yellow'
             : 'red'
         const tooltipValue = cat.limit - spend
-        const tooltip = `${tooltipValue < 0 ? 'Превышение на ' : 'Осталось '} ${currencyFilter(Math.abs(tooltipValue))}`
+        // const tooltip = `${tooltipValue < 0 ? localizeFilter('Message_ExcessBy') : localizeFilter('Message_Left')} ${currencyFilter(Math.abs(tooltipValue))}`
+        const tooltip = `${tooltipValue < 0 
+          ? 'Message_Excess' 
+          : 'Message_Left'}`
       return {
         ...cat,
         progressPercent,
         progressColor,
         spend,
         tooltip,
+        tooltipValue,
       }
     })
 

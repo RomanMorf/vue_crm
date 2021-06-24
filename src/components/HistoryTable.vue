@@ -4,13 +4,13 @@
       <thead>
         <tr>
           <th>#</th>
-          <th>Сумма</th>
-          <th>Дата</th>
-          <th>Категория</th>
-          <th>Тип</th>
-          <th>Открыть</th>
-          <th>Изменить</th>
-          <th>Удалить</th>
+          <th>{{'HistoryTable_Sum' | localize}}</th>
+          <th>{{'HistoryTable_Date' | localize}}</th>
+          <th>{{'HistoryTable_Category' | localize}}</th>
+          <th>{{'HistoryTable_Type' | localize}}</th>
+          <th>{{'HistoryTable_Open' | localize}}</th>
+          <th>{{'HistoryTable_Edit' | localize}}</th>
+          <th>{{'HistoryTable_Delete' | localize}}</th>
         </tr>
       </thead>
 
@@ -27,7 +27,7 @@
             <button 
               class="btn-small btn" 
               @click="$router.push('/detail/' + record.id)"
-              v-tooltip='"Просмотреть запись"'
+              v-tooltip='"HistoryTable_OpenRecord"'
               >
               <i class="material-icons">open_in_new</i>
             </button>
@@ -36,7 +36,7 @@
             <button 
               class="btn-small btn" 
               @click="$router.push('/edit/' + record.id)"
-              v-tooltip='"Редактировать запись"'
+              v-tooltip='"HistoryTable_EditRecord"'
               >
               <i class="material-icons">edit</i>
             </button>
@@ -45,7 +45,7 @@
             <button 
               class="btn-small btn" 
               @click="removeRecord(record.id, index)"
-              v-tooltip='"Удалить запись"'
+              v-tooltip='"HistoryTable_DeleteRecord"'
               >
               <i class="material-icons">delete</i>
             </button>
@@ -57,6 +57,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'historyTable',
   props: {
@@ -65,6 +66,7 @@ export default {
       type: Array,
     }
   },
+
   methods: {
     removeRecord(recordId, index){
       this.$emit('indexForDelete', index)
