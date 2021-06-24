@@ -44,7 +44,7 @@
           <td>
             <button 
               class="btn-small btn" 
-              @click="removeRecord(record.id)"
+              @click="removeRecord(record)"
               v-tooltip='"HistoryTable_DeleteRecord"'
               >
               <i class="material-icons">delete</i>
@@ -68,13 +68,23 @@ export default {
   },
 
   methods: {
-    removeRecord(recordId){
-      this.$emit('indexForDelete', recordId)
-      this.$store.dispatch('deleteRecord', recordId)
+    removeRecord(record){ // удалить запись
+      this.$emit('indexForDelete', record.id)
+      this.$store.dispatch('deleteRecord', record.id)
+
+      if (record.type === 'outcome') { // если запись была расход - вернуть сумму на счет
+        let newBill = +this.$store.getters.info.bill + +record.amount
+        this.$store.dispatch('updateInfo', {bill: newBill})
+
+      } else if (record.type === 'income') { // если запись была доход - отнять сумму от счета
+        let newBill = +this.$store.getters.info.bill - +record.amount
+        this.$store.dispatch('updateInfo', {bill: newBill})
+
+      }
       
       var indexforDel = ''
         this.records.forEach((r, index) => {
-          if (r.id === recordId) {
+          if (r.id === record.id) {
             indexforDel = index
           }
         })

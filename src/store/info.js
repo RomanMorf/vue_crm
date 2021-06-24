@@ -40,16 +40,6 @@ export default {
         throw error
       }
     },
-    //   async updateInfoLocale({commit, getters}, locale) { // обновить инфо Локализация
-    //   try {
-    //     const updateData = {...getters.info, ...locale}
-    //     commit('setInfo', updateData)
-
-    //   } catch (error) {
-    //     commit('setError', error)
-    //     throw error
-    //   }
-    // }
   },
 
   getters: {

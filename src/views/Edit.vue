@@ -130,6 +130,7 @@ export default {
       categories: null,
       current: null,
       id: '',
+      diference: null,
     }
   },
   methods: {
@@ -192,6 +193,8 @@ export default {
       ...record,
       categoryName: category.title
     }
+
+    this.diference = this.record.amount
 
     this.loading = false
   },
