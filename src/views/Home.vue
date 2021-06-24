@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-title">
-      <h3>{{'Menu_Bill' | localize}}</h3>
+      <h3>{{'Menu_Bill' | localize}}: {{info.bill | currency('UAH')}}</h3>
 
       <button class="btn waves-effect waves-light btn-small" @click="refresh">
         <i class="material-icons">refresh</i>
@@ -29,6 +29,7 @@
 import HomeBill from '@/components/HomeBill.vue'
 import HomeCurrencyPivatBank from '@/components/HomeCurrencyPivatBank.vue'
 import messages from '@/utils/messages'
+import {mapGetters} from 'vuex'
 
 export default {
   name: "Home",
@@ -48,23 +49,24 @@ export default {
   },
   methods: {
     async refresh() {
-      
+    
       this.loading = true
-
       try {
         this.currencyRates = await this.$store.dispatch('fetchCurrencyPrivatBank')
         await this.$store.dispatch('fetchInfo')
-
       } catch (error) {
         if (messages[error.code]) {
           this.$message(messages[error.code])
           throw error
         }
       }
-
       this.loading = false
     }
   },
+  computed: {
+    ...mapGetters(['info'])
+  },
+
   components: {
     HomeBill,
     HomeCurrencyPivatBank
