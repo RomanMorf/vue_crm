@@ -62,7 +62,6 @@ import paginationMixins from '@/mixins/pagination.mixin'
 import { Pie } from 'vue-chartjs'
 import localizeFilter from '@/filters/localize.filter' // импортируем фильтр
 
-
 export default {
   name: 'history',
   metaInfo() {
@@ -115,7 +114,6 @@ export default {
             catName = c.title
           }
         })
-        
 
         return {
           ...record,
@@ -184,8 +182,6 @@ export default {
       this.setup();
     }
   },
-  
-
 }
 </script>
 
