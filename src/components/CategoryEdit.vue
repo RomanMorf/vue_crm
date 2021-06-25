@@ -53,11 +53,11 @@
           </span>
         </div>
 
-        <button class="btn waves-effect waves-light" type="submit">
+        <button class="btn waves-effect waves-light mr-10" type="submit">
           {{'Btn_Edit' | localize}}
           <i class="material-icons right">send</i>
         </button>
-        <button class="btn waves-effect waves-light ml-10" @click.prevent="categoryDelete">
+        <button class="btn waves-effect waves-light" @click.prevent="categoryDelete">
           {{'Btn_Delete' | localize}}
           <i class="material-icons right">delete</i>
         </button>
@@ -177,7 +177,7 @@ export default {
 </script>
 
 <style scoped>
-  .btn.waves-effect.waves-light.ml-10 {
-    margin-left: 20px;
+  .btn.waves-effect.waves-light.mr-10 {
+    margin-right: 20px;
   }
 </style>

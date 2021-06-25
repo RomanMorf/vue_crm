@@ -27,6 +27,7 @@
   "Message_Description": "Description",
   "Message_EnterDescription": "Enter description",
   "Message_EmailCanBeAmpty": "Enter Email",
+  "Message_EmailConfirmed": "Email Confirmed",
   "Message_EnterCorrectEmail": "Enter correct Email",
   "Message_Pass": "Password",
   "Message_RepeatPass": "Repeat password",

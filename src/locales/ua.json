@@ -27,6 +27,7 @@
   "Message_Description": "Опис",
   "Message_EnterDescription": "Введіть опис",
   "Message_EmailCanBeAmpty": "Поле Email не має бути порожнім",
+  "Message_EmailConfirmed": "Email підтверджено",
   "Message_EnterCorrectEmail": "Введіть корректний Email",
   "Message_Pass": "Пароль",
   "Message_RepeatPass": "Повторити пароль",

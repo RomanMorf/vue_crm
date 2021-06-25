@@ -27,6 +27,7 @@
   "Message_Description": "Описание",
   "Message_EnterDescription": "Введите описание",
   "Message_EmailCanBeAmpty": "Поле Email не должно быть пустым",
+  "Message_EmailConfirmed": "Email подтвержден",
   "Message_EnterCorrectEmail": "Введите корректный Email",
   "Message_Pass": "Пароль",
   "Message_RepeatPass": "Повторите пароль",
