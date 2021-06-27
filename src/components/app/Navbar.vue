@@ -3,9 +3,13 @@
     <nav class="navbar orange lighten-1">
       <div class="nav-wrapper">
         <div class="navbar-left">
-          <a href="#" @click.prevent="$emit('click')"> 
+          <a href="#" @click.prevent="$emit('click')" v-show="!open"> 
             <i class="material-icons black-text">dehaze</i>
+          </a>          
+          <a href="#" v-show="open"> 
+            <i class="material-icons black-text">close</i>
           </a>
+
           <span class="black-text">{{ date | date('datetime') }}</span>  
           <!-- применен фильтр для вывода даты и времени 
           datetime - выводит и дату и время.
@@ -48,17 +52,20 @@
 <script>
 
 export default {
+  props: ['open'],
   data: () => ({
     date: new Date,
     dropdown: null,
     interval: null,
   }),
-  
-  methods: {
 
+  methods: {
     async logout() {
       await this.$store.dispatch('logout');
       this.$router.push('/login');
+    },
+    awayNavBar() {
+      console.log('away nav bar');
     },
   },
 
@@ -85,5 +92,6 @@ export default {
       this.dropdown.destroy // вызов метода удаления 
     }
   },
+
 }
 </script>

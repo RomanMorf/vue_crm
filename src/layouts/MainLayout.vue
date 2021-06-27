@@ -4,12 +4,15 @@
     <div class="app-main-layout">
 
       <Navbar 
-        @click="isOpen = !isOpen"
+        @click="(openBar())"
+        :open="isOpen"
       />
 
       <Sidebar 
         v-model="isOpen"
         :key="locale" 
+        v-on-clickaway="awaySideBar"
+        
       />
 
       <main class="app-content" :class="{full: !isOpen}">
@@ -32,6 +35,7 @@
 import Navbar from '@/components/app/Navbar'
 import Sidebar from '@/components/app/Sidebar'
 // import messages from '@/utils/messages'
+import { directive as onClickaway } from 'vue-clickaway'
 
 export default {
   name: 'main-layout',
@@ -45,6 +49,20 @@ export default {
     isLoading: true,
     // tooltip: 'Создать новую запись',
   }),
+  methods: {
+    openBar() {
+      setTimeout(()=> {
+        this.isOpen = true
+      }, 0)
+    },
+    awaySideBar(){
+      if (this.isOpen) {
+        this.isOpen = false
+        return
+      }
+    },
+
+  },
   async mounted() {
     if (!Object.keys(this.$store.getters.info).name) {
       await this.$store.dispatch('fetchInfo')
@@ -67,7 +85,10 @@ export default {
     // locale () {
     //   console.log('Locale chenge');
     // }
-  }
+  },
+  directives: {
+    onClickaway: onClickaway,
+  },
 }
 </script>
 
