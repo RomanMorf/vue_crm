@@ -5,8 +5,8 @@
         <tr>
           <th>#</th>
           <th>{{'HistoryTable_Sum' | localize}}</th>
-          <th>{{'HistoryTable_Date' | localize}}</th>
-          <th>{{'HistoryTable_Category' | localize}}</th>
+          <th class="w700-display">{{'HistoryTable_Date' | localize}}</th>
+          <th class="w700-display">{{'HistoryTable_Category' | localize}}</th>
           <th>{{'HistoryTable_Type' | localize}}</th>
           <th>{{'HistoryTable_Open' | localize}}</th>
           <th>{{'HistoryTable_Edit' | localize}}</th>
@@ -18,8 +18,8 @@
         <tr v-for="(record, index) in records" :key="record.id">
           <td>{{ index + 1 }}</td>
           <td>{{ record.amount | currency('UAH') }}</td>
-          <td>{{ record.date | date('date') }}</td>
-          <td>{{ record.categoryName }}</td>
+          <td class="w700-display">{{ record.date | date('date') }}</td>
+          <td class="w700-display">{{ record.categoryName }}</td>
           <td>
             <span class="white-text badge" :class="record.typeClass">{{ record.typeText }}</span>
           </td>
@@ -93,3 +93,4 @@ export default {
   }
 }
 </script>
+
