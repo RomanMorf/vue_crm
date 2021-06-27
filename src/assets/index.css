@@ -10,9 +10,12 @@
   align-items: center;
   padding-top: 5rem;
   height: 100vh;
+  min-width: 430px;
+
 }
 .auth-card {
-  width: 500px;
+  margin: 5px;
+  max-width: 500px;
 }
 .auth-submit {
   width: 100%;
@@ -26,7 +29,7 @@
 .app-main-layout {
   position: relative;
   min-height: 100vh;
-  min-width: 450px;
+  min-width: 430px;
 }
 .app-sidenav {
   padding-top: 5px;
