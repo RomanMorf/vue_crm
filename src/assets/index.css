@@ -10,7 +10,7 @@
   align-items: center;
   padding-top: 5rem;
   height: 100vh;
-  min-width: 430px;
+  min-width: 330px;
 
 }
 .auth-card {
@@ -29,7 +29,7 @@
 .app-main-layout {
   position: relative;
   min-height: 100vh;
-  min-width: 430px;
+  min-width: 330px;
 }
 .app-sidenav {
   padding-top: 5px;
@@ -179,5 +179,15 @@
   .w700-display {
     display: none;
   }
-
+  .app-page {
+    padding: 0.5rem;
+  }
+  .page-subtitle h4,
+  .page-title h3,
+  .page-title h4 {
+    font-size: 1.5rem;
+  }
 }
+
+
+

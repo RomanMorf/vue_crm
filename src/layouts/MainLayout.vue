@@ -44,7 +44,7 @@ export default {
     Navbar
   },
   data: () => ({
-    isOpen: true,
+    isOpen: false,
     else: true,
     isLoading: true,
     // tooltip: 'Создать новую запись',

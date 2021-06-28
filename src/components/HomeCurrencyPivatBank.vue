@@ -1,5 +1,5 @@
 <template>
-  <div class="col s25 m6 l8">
+  <div class="col s12 m6 l8">
     <div class="card orange darken-3">
       <div class="card-content white-text">
         <div class="card-header">

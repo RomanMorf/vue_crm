@@ -29,7 +29,7 @@
               <i class="material-icons right">arrow_drop_down</i>
             </a>
 
-            <ul id='dropdown' class='dropdown-content'>
+            <ul id='dropdown' class='dropdown-content dropdown-content2'>
               <li>
                 <router-link to="/profile" class="black-text">
                   <i class="material-icons">account_circle</i>{{'Menu_Profile' | localize}}

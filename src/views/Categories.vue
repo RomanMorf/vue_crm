@@ -9,7 +9,10 @@
 
     <div v-else class="row">
 
-      <CategoryCreate @created="addNewCategory"/>
+      <CategoryCreate 
+        @created="addNewCategory"
+        class="mb-50"
+        />
 
       <CategoryEdit 
         v-if="categories"
@@ -54,13 +57,6 @@ export default {
       this.categories.push(category)
     },
     updateCategories(editedCategory) { // обновить категории
-      // this.categories.forEach(cat => {
-      //   if (cat.id == editedCategory.id) {
-      //     cat.title = editedCategory.title
-      //     cat.limit = editedCategory.limit
-      //     console.log(this.categories, 'this.categories');
-      //   }
-      // });
       const index = this.categories.findIndex(c => c.id === editedCategory.id)
       this.categories[index].title = editedCategory.title
       this.categories[index].limit = editedCategory.limit
@@ -79,3 +75,8 @@ export default {
 }
 </script>
 
+<style scoped>
+.mb-50 {
+  margin-bottom: 50px;
+}
+</style>

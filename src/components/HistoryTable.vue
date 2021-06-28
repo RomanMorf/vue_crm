@@ -8,7 +8,7 @@
           <th class="w700-display">{{'HistoryTable_Date' | localize}}</th>
           <th class="w700-display">{{'HistoryTable_Category' | localize}}</th>
           <th>{{'HistoryTable_Type' | localize}}</th>
-          <th>{{'HistoryTable_Open' | localize}}</th>
+          <th class="w700-display">{{'HistoryTable_Open' | localize}}</th>
           <th>{{'HistoryTable_Edit' | localize}}</th>
           <th>{{'HistoryTable_Delete' | localize}}</th>
         </tr>
@@ -23,7 +23,7 @@
           <td>
             <span class="white-text badge" :class="record.typeClass">{{ record.typeText }}</span>
           </td>
-          <td>
+          <td class="w700-display">
             <button 
               class="btn-small btn" 
               @click="$router.push('/detail/' + record.id)"
