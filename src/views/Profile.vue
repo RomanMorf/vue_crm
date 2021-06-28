@@ -78,6 +78,9 @@
       </div>
 
     </div>
+
+    <Popup />
+
   </div>
 </template>
 
@@ -89,7 +92,7 @@ import {mapGetters, mapActions} from 'vuex'
 import {required, email} from 'vuelidate/lib/validators'
 import LangSwitch from '@/components/LangSwitch'
 import messages from '@/utils/messages'
-
+import Popup from '@/components/Popup'
 
 export default {
   metaInfo() {
@@ -115,7 +118,8 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['info'])
+    ...mapGetters(['info']),
+    Popup
   },
   validations: {
     name: {required},
