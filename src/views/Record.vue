@@ -8,7 +8,7 @@
 
   <p class="center" v-else-if="!categories">{{'Message_NoCategories' | localize}}. <router-link to="/categories">{{'Message_CreateNewCategory' | localize}}</router-link> </p>
 
-  <form v-else class="form" @submit.prevent="submitHandler">
+  <form v-else class="form" @submit.prevent="submitHandler" autocomplete="off">
     <div class="input-field" >
       <select ref="select" v-model="category">
         <option 

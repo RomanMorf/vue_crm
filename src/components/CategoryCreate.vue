@@ -5,7 +5,7 @@
         <h4>{{'Btn_Create' | localize}}</h4>
       </div>
 
-      <form @submit.prevent="submitHandler">
+      <form autocomplete="off" @submit.prevent="submitHandler">
         <div class="input-field">
           <input
               id="name"

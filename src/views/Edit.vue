@@ -33,6 +33,7 @@
 
             <p v-show="record.description">{{'Message_Description' | localize}}: {{ record.description }}</p>
             <input 
+            autocomplete="off"
             id="description"
             v-model="record.description"
             v-show="!edit"
@@ -42,6 +43,7 @@
             
             <p>{{'Message_Sum' | localize}}: {{ record.amount | currency }}</p>
             <input 
+            autocomplete="off"
             type="number"
             v-model="record.amount"
             v-show="!edit"
