@@ -44,6 +44,7 @@
   "Message_RecordCreated": "Record created",
   "Message_RecordWithId": "Record with ID",
   "Message_NotFound": "not found",
+  "Message_Attantion": "Attantion !",
 
   "Message_Left": "Your limit is not excessed",
   "Message_Excess": "Limit excessed",
@@ -91,6 +92,6 @@
 
   "RegistrationForm": "Registration Form",
   
-  "ConfirmDeleteCategory": "Attention! \nAre you sure you want to delete the category? ",
-  "ConfirmDeleteRecord": "Attention! \nAre you sure you want to delete this record? "
+  "ConfirmDeleteCategory": "Are you sure you want to delete the category ",
+  "ConfirmDeleteRecord": "Are you sure you want to delete this record  "
 }

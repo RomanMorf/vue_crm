@@ -27,7 +27,6 @@
             <button 
               class="btn-small btn" 
               @click="$router.push('/detail/' + record.id)"
-              v-tooltip='"HistoryTable_OpenRecord"'
               >
               <i class="material-icons">open_in_new</i>
             </button>
@@ -36,7 +35,6 @@
             <button 
               class="btn-small btn" 
               @click="$router.push('/edit/' + record.id)"
-              v-tooltip='"HistoryTable_EditRecord"'
               >
               <i class="material-icons">edit</i>
             </button>
@@ -44,8 +42,7 @@
           <td>
             <button 
               class="btn-small btn" 
-              @click="removeRecord(record)"
-              v-tooltip='"HistoryTable_DeleteRecord"'
+              @click="deleteRecord(record)"
               >
               <i class="material-icons">delete</i>
             </button>
@@ -53,11 +50,41 @@
         </tr>
       </tbody>
     </table>
+
+    <Modal 
+      v-show="isShowModal"
+      @close="closeModal"
+      @clickAwayModal="clickAwayModal"
+      >
+      <template v-slot:header>
+        <h5 class="center">{{'Message_Attantion' | localize}}</h5>
+      </template>
+
+      <template v-slot:content>
+        <div class="center">{{'ConfirmDeleteRecord' | localize}} ? </div>
+      </template>
+
+      <template v-slot:footer>
+          <button class="btn waves-effect waves-red mr-10 mb-10" @click="confirmDel()">
+            <i class="material-icons right hide-on-small-and-down">delete</i>
+            <i class="material-icons hide-on-med-and-up">delete</i>
+            <span class="hide-on-small-and-down">{{'Btn_Delete' | localize}}</span>
+            </button>
+          <button class="btn waves-effect waves-light mb-10" @click="closeModal">
+            <i class="material-icons right hide-on-small-and-down">cancel</i>
+            <i class="material-icons hide-on-med-and-up">cancel</i>
+            <span class="hide-on-small-and-down">{{'Btn_Cancel' | localize}}</span>
+            </button>
+      </template>
+    </Modal>
+
   </div>
 </template>
 
 <script>
-import localizeFilter from '@/filters/localize.filter' // импортируем фильтр
+import Modal from "@/components/app/Modal.vue";
+import modalMixin from "@/mixins/modal.mixins.js";
+import { directive as onClickaway } from 'vue-clickaway'
 
 export default {
   name: 'historyTable',
@@ -67,21 +94,31 @@ export default {
       type: Array,
     }
   },
-
+  mixins: [modalMixin],
+  data() {
+    return {
+      dataForDelete: null
+    }
+  },
   methods: {
+    deleteRecord(record) {
+      this.showModal()
+      this.dataForDelete = record
+    },
+    confirmDel() {
+      this.removeRecord(this.dataForDelete)
+      this.closeModal()
+      this.dataForDelete = null
+    },
     removeRecord(record){ // удалить запись
-    if (confirm(localizeFilter(`ConfirmDeleteRecord`))) {
       this.$emit('indexForDelete', record.id)
       this.$store.dispatch('deleteRecord', record.id)
-
       if (record.type === 'outcome') { // если запись была расход - вернуть сумму на счет
         let newBill = +this.$store.getters.info.bill + +record.amount
         this.$store.dispatch('updateInfo', {bill: newBill})
-
       } else if (record.type === 'income') { // если запись была доход - отнять сумму от счета
         let newBill = +this.$store.getters.info.bill - +record.amount
         this.$store.dispatch('updateInfo', {bill: newBill})
-
       }
       
       var indexforDel = ''
@@ -91,10 +128,15 @@ export default {
           }
         })
       this.records.splice(indexforDel, 1)
+    },
+  },
+  components: {
+    Modal
+  },
+  directives: {
+    onClickaway: onClickaway,
+  },
 
-    }
-    }
-  }
 }
 </script>
 

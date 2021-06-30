@@ -57,11 +57,39 @@
           {{'Btn_Edit' | localize}}
           <i class="material-icons right">send</i>
         </button>
-        <button class="btn waves-effect waves-light mb-10" @click.prevent="categoryDelete">
+        <button class="btn waves-effect waves-light mb-10" @click.prevent="deleteCategory">
           {{'Btn_Delete' | localize}}
           <i class="material-icons right">delete</i>
         </button>
       </form>
+
+      <Modal 
+      v-show="isShowModal"
+      @close="closeModal"
+      @clickAwayModal="clickAwayModal"
+      >
+      <template v-slot:header>
+        <h5 class="center">{{'Message_Attantion' | localize}}</h5>
+      </template>
+
+      <template v-slot:content>
+        <div class="center">{{'ConfirmDeleteCategory' | localize}} {{title}} ?</div>
+      </template>
+
+      <template v-slot:footer>
+          <button class="btn waves-effect waves-red mr-10 mb-10" @click="confirmDel()">
+            <i class="material-icons right hide-on-small-and-down">delete</i>
+            <i class="material-icons hide-on-med-and-up">delete</i>
+            <span class="hide-on-small-and-down">{{'Btn_Delete' | localize}}</span>
+            </button>
+          <button class="btn waves-effect waves-light mb-10" @click="closeModal">
+            <i class="material-icons right hide-on-small-and-down">cancel</i>
+            <i class="material-icons hide-on-med-and-up">cancel</i>
+            <span class="hide-on-small-and-down">{{'Btn_Cancel' | localize}}</span>
+            </button>
+      </template>
+    </Modal>
+
     </div>
   </div>
 
@@ -70,7 +98,8 @@
 <script>
 import {required, minValue} from 'vuelidate/lib/validators' // импортируем валидаторы
 import messages from '@/utils/messages'
-import localizeFilter from '@/filters/localize.filter' // импортируем фильтр
+import Modal from "@/components/app/Modal.vue";
+import modalMixin from "@/mixins/modal.mixins.js";
 
 export default {
   props: {
@@ -88,6 +117,7 @@ export default {
       current: null,
     }
   },
+  mixins: [modalMixin],
   methods: {
     async submitHandler() { // редактировать категорию
       if (this.$v.$invalid) {
@@ -109,8 +139,7 @@ export default {
       }
     },
     async categoryDelete() { // удалить категорию
-      if (confirm(localizeFilter(`ConfirmDeleteCategory`))) {
-        try {
+      try {
         const categoryForDelete = {
         id: this.id
         }
@@ -127,15 +156,22 @@ export default {
         this.limit = ''
         this.id = ''
 
-        } catch (error) {
-          if (messages[error.code]) {
-            this.$message(messages[error.code])
-            throw error
-          }
+      } catch (error) {
+        if (messages[error.code]) {
+          this.$message(messages[error.code])
+          throw error
         }
       }
 
-    }
+    },
+    deleteCategory() {
+      this.showModal()
+    },
+    confirmDel() {
+      this.categoryDelete()
+      this.closeModal()
+    },
+
   },
   validations: {
     title: {required},
@@ -175,6 +211,9 @@ export default {
       this.limit = limit
       this.id = catId
     }
+  },
+  components: {
+    Modal
   }
 }
 </script>

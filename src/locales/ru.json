@@ -44,6 +44,7 @@
   "Message_RecordCreated": "Запись создана",
   "Message_RecordWithId": "Запись с ID",
   "Message_NotFound": "не найдена",
+  "Message_Attantion": "Внимание !",
 
   "Message_Left": "Лимит не превышен",
   "Message_Excess": "Лимит превышен",
@@ -91,7 +92,7 @@
 
   "RegistrationForm": "Форма регистраци",
 
-  "ConfirmDeleteCategory": "Внимание! \nВы уверенны что хотите удалить категорию ? ",
-  "ConfirmDeleteRecord": "Внимание! \nВы уверенны что хотите удалить эту запись ? "
+  "ConfirmDeleteCategory": "Вы уверенны что хотите удалить категорию ",
+  "ConfirmDeleteRecord": "Вы уверенны что хотите удалить эту запись "
 
 }
