@@ -57,6 +57,7 @@
 </template>
 
 <script>
+import localizeFilter from '@/filters/localize.filter' // импортируем фильтр
 
 export default {
   name: 'historyTable',
@@ -69,6 +70,7 @@ export default {
 
   methods: {
     removeRecord(record){ // удалить запись
+    if (confirm(localizeFilter(`ConfirmDeleteRecord`))) {
       this.$emit('indexForDelete', record.id)
       this.$store.dispatch('deleteRecord', record.id)
 
@@ -89,6 +91,8 @@ export default {
           }
         })
       this.records.splice(indexforDel, 1)
+
+    }
     }
   }
 }

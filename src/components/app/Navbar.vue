@@ -17,7 +17,7 @@
           time - только время -->
         </div>
 
-        <ul class="right hide-on-small-and-down">
+        <ul class="right ">
           <li>
             <a
                 class="dropdown-trigger black-text"
@@ -25,8 +25,9 @@
                 data-target="dropdown"
                 ref='dropdown'
             >
-              {{ name }}
-              <i class="material-icons right">arrow_drop_down</i>
+              <span class="hide-on-small-and-down">{{ name }}</span>
+              <i class="material-icons right hide-on-small-and-down">arrow_drop_down</i>
+              <i class="material-icons right hide-on-med-and-up">account_circle</i>
             </a>
 
             <ul id='dropdown' class='dropdown-content dropdown-content2'>

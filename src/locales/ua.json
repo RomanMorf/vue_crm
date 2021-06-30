@@ -56,7 +56,7 @@
   "Menu_Profile": "Профіль",
   "Menu_Loguot": "Віхід",
 
-  "HomeBill_Currencies": "Рахунов у валюті",
+  "HomeBill_Currencies": "Рахунок у валюті",
   "HomeCurrency_CurrencyesRates": "Курс валют",
   "HomeCurrency_Currency": "Валюта",
   "HomeCurrency_Buy": "Покупка",
@@ -89,5 +89,9 @@
   "Record": "Новий запис",
   "Edit": "Редагувати запис",
 
-  "RegistrationForm": "Форма регістрація"
+  "RegistrationForm": "Форма регістрація",
+
+  "ConfirmDeleteCategory": "Увага! \nВи впевнені, що хочите видалити цю категорію ? ",
+  "ConfirmDeleteRecord": "Увага! \nВи впевнені, що хочите видалити цей запис ? "
+
 }

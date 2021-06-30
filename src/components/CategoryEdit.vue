@@ -70,6 +70,7 @@
 <script>
 import {required, minValue} from 'vuelidate/lib/validators' // импортируем валидаторы
 import messages from '@/utils/messages'
+import localizeFilter from '@/filters/localize.filter' // импортируем фильтр
 
 export default {
   props: {
@@ -108,7 +109,8 @@ export default {
       }
     },
     async categoryDelete() { // удалить категорию
-      try {
+      if (confirm(localizeFilter(`ConfirmDeleteCategory`))) {
+        try {
         const categoryForDelete = {
         id: this.id
         }
@@ -125,10 +127,11 @@ export default {
         this.limit = ''
         this.id = ''
 
-      } catch (error) {
-        if (messages[error.code]) {
-          this.$message(messages[error.code])
-          throw error
+        } catch (error) {
+          if (messages[error.code]) {
+            this.$message(messages[error.code])
+            throw error
+          }
         }
       }
 
