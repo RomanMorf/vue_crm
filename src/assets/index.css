@@ -196,6 +196,25 @@
   }
 }
 
+.bounce2-enter-active {
+  animation: bounce2-in 1s;
+}
+.bounce2-leave-active {
+  animation: 1s bounce2-in 1s reverse;
+}
+@keyframes bounce2-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+
 
 /*  */
 
