@@ -12,6 +12,7 @@
         v-model="isOpen"
         :key="locale" 
         v-on-clickaway="awaySideBar"
+        @sidebarClick="sidebarClick"
         
       />
 
@@ -60,6 +61,12 @@ export default {
         this.isOpen = false
         return
       }
+    },
+    sidebarClick() {
+      setTimeout(()=> {
+        this.isOpen = false
+      }, 300)
+
     },
 
   },
