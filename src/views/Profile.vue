@@ -23,8 +23,7 @@
             >{{ 'Message_EnterName' | localize}}
           </small>
         </div>
-        <p class="email">Email: {{ currentUser.email }} <span class="email_confirmed" v-show="currentUser.emailVerified" v-tooltip='"Message_EmailConfirmed"'
-></span></p> 
+        <p class="email">Email: {{ currentUser.email }} <span class="email_confirmed" v-show="currentUser.emailVerified" v-tooltip='"Message_EmailConfirmed"'></span></p> 
         <p class="small">{{ currentUser.emailVerified ? 'Почта подтверждена' : 'необходимо подтвердить Email' }}</p>
 
         <div>
@@ -102,6 +101,7 @@ export default {
       loading: true,
       name: '',
       isRuLocale: true,
+      show: true,
 
 
       testZone: false,

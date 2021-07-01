@@ -2,6 +2,7 @@
   <div class="window">
     <div class="window__inner" >
       <div class="window__container" v-on-clickaway="clickAway">
+
         <section class="window__header header">
           <slot name="header"></slot>
         </section>
@@ -14,10 +15,13 @@
           <slot name="footer"></slot>
         </section>
 
-        <span class="window__close btn-small" @click="close">
-          <i class="material-icons">close</i>
-        </span>
-
+        <section>
+          <slot name="closeBtn">
+            <span class="window__close btn-small" @click="close">
+              <i class="material-icons">close</i>
+            </span>
+          </slot>
+        </section>
       </div>
     </div>
   </div>
@@ -27,11 +31,6 @@
 import { directive as onClickaway } from 'vue-clickaway'
 
 export default {
-  data() {
-    return {
-      show: false
-    }
-  },
   props: {
     windowData: {
       type: Object,
@@ -89,6 +88,17 @@ export default {
       flex-direction: column;
       justify-content: space-between;
       align-items: stretch;
+
+      animation-name: bounce;
+      animation-timing-function: ease;
+    }
+
+    @keyframes bounce {
+      0%   { transform: scale(1,1)    translateY(0); }
+      10%  { transform: scale(1.1,.9) translateY(0); }
+      30%  { transform: scale(.9,1.1) translateY(-100px); }
+      50%  { transform: scale(1,1)    translateY(0); }
+      100% { transform: scale(1,1)    translateY(0); }
     }
 
     &__footer {

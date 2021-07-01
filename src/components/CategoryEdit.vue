@@ -68,26 +68,40 @@
       @close="closeModal"
       @clickAwayModal="clickAwayModal"
       >
-      <template v-slot:header>
-        <h5 class="center">{{'Message_Attantion' | localize}}</h5>
+
+      <template v-slot:header >
+        <transition name="bounce">
+          <h5 class="center" v-show="isShowModalAnimate">{{'Message_Attantion' | localize}}</h5>
+        </transition>
       </template>
 
       <template v-slot:content>
-        <div class="center">{{'ConfirmDeleteCategory' | localize}} {{title}} ?</div>
+        <transition name="bounce">
+          <div v-show="isShowModalAnimate" class="center">{{'ConfirmDeleteCategory' | localize}} {{title}} ?</div>
+        </transition>
       </template>
 
       <template v-slot:footer>
-          <button class="btn waves-effect waves-red mr-10 mb-10" @click="confirmDel()">
+        <transition name="bounce">
+          <button v-show="isShowModalAnimate" class="btn waves-effect waves-red mr-10 mb-10" @click="confirmDel()">
             <i class="material-icons right hide-on-small-and-down">delete</i>
             <i class="material-icons hide-on-med-and-up">delete</i>
             <span class="hide-on-small-and-down">{{'Btn_Delete' | localize}}</span>
             </button>
-          <button class="btn waves-effect waves-light mb-10" @click="closeModal">
+        </transition>
+        <transition name="bounce">
+
+          <button v-show="isShowModalAnimate" class="btn waves-effect waves-light mb-10" @click="closeModal">
             <i class="material-icons right hide-on-small-and-down">cancel</i>
             <i class="material-icons hide-on-med-and-up">cancel</i>
             <span class="hide-on-small-and-down">{{'Btn_Cancel' | localize}}</span>
             </button>
+        </transition>
       </template>
+
+      <template v-slot:closeBtn></template>
+
+
     </Modal>
 
     </div>
@@ -225,4 +239,5 @@ export default {
   .mb-10 {
     margin-bottom: 10px;
   }
+
 </style>
